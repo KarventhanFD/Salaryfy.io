@@ -1,8 +1,8 @@
 // pages/TaxInformationPage.js
 import React, { useState } from 'react';
 
-const TaxInformationPage = () => {
-  const [income, setIncome] = useState(0);
+const TaxInformationPage = ({ darkMode }) => {
+  const [income, setIncome] = useState();
   const [tax, setTax] = useState(null);
 
   const calculateTax = () => {
@@ -39,16 +39,16 @@ const TaxInformationPage = () => {
       <h1 className="text-4xl font-bold text-center mb-12">Tax Information</h1>
       
       {/* Tax Calculator */}
-      <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md mb-8">
+      <div className={`p-6 rounded-lg shadow-md mb-8 ${darkMode ? 'bg-gray-800' : 'bg-white'}`}>
         <h2 className="text-2xl font-semibold mb-4">Income Tax Calculator</h2>
         <div className="flex flex-col md:flex-row items-center space-y-4 md:space-y-0 md:space-x-4">
           <div className="w-full md:w-2/3">
-            <label className="block text-gray-700 dark:text-gray-300 mb-2">Annual Income (INR)</label>
+            <label className={`block mb-2 ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>Annual Income (INR)</label>
             <input
               type="number"
               value={income}
               onChange={(e) => setIncome(parseFloat(e.target.value))}
-              className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent dark:bg-gray-700 dark:text-white"
+              className={`w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent ${darkMode ? 'bg-gray-700 text-white border-gray-600' : 'bg-white text-gray-800 border-gray-300'}`}
               placeholder="Enter your annual income"
             />
           </div>
@@ -61,10 +61,10 @@ const TaxInformationPage = () => {
         </div>
 
         {tax !== null && (
-          <div className="mt-6 p-4 bg-blue-50 dark:bg-blue-900/30 rounded-lg">
+          <div className={`mt-6 p-4 rounded-lg ${darkMode ? 'bg-blue-900/30' : 'bg-blue-50'}`}>
             <h3 className="text-xl font-semibold mb-2">Tax Liability</h3>
             <p className="text-lg">Your estimated tax liability is: <span className="font-bold text-blue-600">₹{tax.toFixed(2)}</span></p>
-            <p className="text-sm text-gray-600 dark:text-gray-300 mt-2">
+            <p className={`text-sm mt-2 ${darkMode ? 'text-gray-300' : 'text-gray-600'}`}>
               Note: This is a simplified calculation. Actual tax may vary based on deductions and exemptions.
             </p>
           </div>
@@ -72,22 +72,22 @@ const TaxInformationPage = () => {
       </div>
 
       {/* Tax Slabs */}
-      <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md mb-8">
+      <div className={`p-6 rounded-lg shadow-md mb-8 ${darkMode ? 'bg-gray-800' : 'bg-white'}`}>
         <h2 className="text-2xl font-semibold mb-6">Income Tax Slabs (2023-24)</h2>
         <div className="overflow-x-auto">
           <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
-            <thead className="bg-gray-50 dark:bg-gray-700">
+            <thead className={darkMode ? 'bg-gray-700' : 'bg-gray-50'}>
               <tr>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Income Range</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Tax Rate</th>
+                <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Income Range</th>
+                <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Tax Rate</th>
               </tr>
             </thead>
-            <tbody className="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
+            <tbody className={`divide-y ${darkMode ? 'divide-gray-700 bg-gray-800' : 'divide-gray-200 bg-white'}`}>
               <tr>
                 <td className="px-6 py-4 whitespace-nowrap">Up to ₹2,50,000</td>
                 <td className="px-6 py-4 whitespace-nowrap">Nil</td>
               </tr>
-              <tr className="bg-gray-50 dark:bg-gray-700">
+              <tr className={darkMode ? 'bg-gray-700' : 'bg-gray-50'}>
                 <td className="px-6 py-4 whitespace-nowrap">₹2,50,001 to ₹5,00,000</td>
                 <td className="px-6 py-4 whitespace-nowrap">5%</td>
               </tr>
@@ -95,7 +95,7 @@ const TaxInformationPage = () => {
                 <td className="px-6 py-4 whitespace-nowrap">₹5,00,001 to ₹7,50,000</td>
                 <td className="px-6 py-4 whitespace-nowrap">10%</td>
               </tr>
-              <tr className="bg-gray-50 dark:bg-gray-700">
+              <tr className={darkMode ? 'bg-gray-700' : 'bg-gray-50'}>
                 <td className="px-6 py-4 whitespace-nowrap">₹7,50,001 to ₹10,00,000</td>
                 <td className="px-6 py-4 whitespace-nowrap">15%</td>
               </tr>
@@ -103,7 +103,7 @@ const TaxInformationPage = () => {
                 <td className="px-6 py-4 whitespace-nowrap">₹10,00,001 to ₹12,50,000</td>
                 <td className="px-6 py-4 whitespace-nowrap">20%</td>
               </tr>
-              <tr className="bg-gray-50 dark:bg-gray-700">
+              <tr className={darkMode ? 'bg-gray-700' : 'bg-gray-50'}>
                 <td className="px-6 py-4 whitespace-nowrap">₹12,50,001 to ₹15,00,000</td>
                 <td className="px-6 py-4 whitespace-nowrap">25%</td>
               </tr>
@@ -117,15 +117,15 @@ const TaxInformationPage = () => {
       </div>
 
       {/* Deductions */}
-      <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
+      <div className={`p-6 rounded-lg shadow-md ${darkMode ? 'bg-gray-800' : 'bg-white'}`}>
         <h2 className="text-2xl font-semibold mb-6">Common Deductions</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div className="p-4 bg-green-50 dark:bg-green-900/30 rounded-lg">
+          <div className={`p-4 rounded-lg ${darkMode ? 'bg-green-900/30' : 'bg-green-50'}`}>
             <h3 className="text-lg font-semibold text-green-600 mb-2">Section 80C</h3>
-            <p className="text-gray-600 dark:text-gray-300 mb-2">
+            <p className={darkMode ? 'text-gray-300' : 'text-gray-600'}>
               Investments up to ₹1,50,000 in specified instruments like ELSS, PPF, NSC, etc.
             </p>
-            <ul className="list-disc list-inside text-sm text-gray-500 dark:text-gray-400">
+            <ul className={`list-disc list-inside text-sm mt-2 ${darkMode ? 'text-gray-400' : 'text-gray-500'}`}>
               <li>ELSS Mutual Funds</li>
               <li>Public Provident Fund (PPF)</li>
               <li>Employee Provident Fund (EPF)</li>
@@ -133,31 +133,31 @@ const TaxInformationPage = () => {
             </ul>
           </div>
           
-          <div className="p-4 bg-blue-50 dark:bg-blue-900/30 rounded-lg">
+          <div className={`p-4 rounded-lg ${darkMode ? 'bg-blue-900/30' : 'bg-blue-50'}`}>
             <h3 className="text-lg font-semibold text-blue-600 mb-2">Section 80D</h3>
-            <p className="text-gray-600 dark:text-gray-300 mb-2">
+            <p className={darkMode ? 'text-gray-300' : 'text-gray-600'}>
               Deduction for health insurance premiums paid for self, family, and parents.
             </p>
-            <ul className="list-disc list-inside text-sm text-gray-500 dark:text-gray-400">
+            <ul className={`list-disc list-inside text-sm mt-2 ${darkMode ? 'text-gray-400' : 'text-gray-500'}`}>
               <li>Self & Family: ₹25,000</li>
               <li>Parents (below 60): ₹25,000</li>
               <li>Parents (senior citizens): ₹50,000</li>
             </ul>
           </div>
           
-          <div className="p-4 bg-purple-50 dark:bg-purple-900/30 rounded-lg">
+          <div className={`p-4 rounded-lg ${darkMode ? 'bg-purple-900/30' : 'bg-purple-50'}`}>
             <h3 className="text-lg font-semibold text-purple-600 mb-2">HRA Exemption</h3>
-            <p className="text-gray-600 dark:text-gray-300 mb-2">
+            <p className={darkMode ? 'text-gray-300' : 'text-gray-600'}>
               Exemption on House Rent Allowance for employees living in rented accommodation.
             </p>
-            <p className="text-sm text-gray-500 dark:text-gray-400">
+            <p className={`text-sm mt-2 ${darkMode ? 'text-gray-400' : 'text-gray-500'}`}>
               Calculated as the minimum of: Actual HRA, Rent paid minus 10% of salary, or 50% of salary (metro) / 40% (non-metro)
             </p>
           </div>
           
-          <div className="p-4 bg-yellow-50 dark:bg-yellow-900/30 rounded-lg">
+          <div className={`p-4 rounded-lg ${darkMode ? 'bg-yellow-900/30' : 'bg-yellow-50'}`}>
             <h3 className="text-lg font-semibold text-yellow-600 mb-2">Standard Deduction</h3>
-            <p className="text-gray-600 dark:text-gray-300">
+            <p className={darkMode ? 'text-gray-300' : 'text-gray-600'}>
               A flat deduction of ₹50,000 for salaried individuals regardless of actual expenses.
             </p>
           </div>
